@@ -2,7 +2,7 @@
 
 A comprehensive data pipeline for migrating data from Kaggle datasets to Google BigQuery and then to Azure Data Lake Storage. This project provides a robust ETL (Extract, Transform, Load) framework with configurable transformations, data quality checks, and monitoring capabilities.
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 data-lake-migration-bigquery-azure/
@@ -124,7 +124,7 @@ transformations:
     salary_age_ratio: "salary / age"
 ```
 
-## 🏃‍♂️ Usage
+## Usage
 
 ### Basic Usage
 
@@ -170,7 +170,7 @@ python main.py --config config/config.yaml --source dataset.table --target azure
 jupyter notebook notebooks/analysis.ipynb
 ```
 
-## 🧪 Testing
+## Testing
 
 Run the test suite:
 
@@ -185,7 +185,7 @@ python -m pytest tests/ --cov=src
 python -m pytest tests/test_pipeline.py::TestTransformer
 ```
 
-## 📊 Data Quality Checks
+## Data Quality Checks
 
 The pipeline includes built-in data quality checks:
 
@@ -208,7 +208,7 @@ data_quality:
       max_null_percentage: 5
 ```
 
-## 📈 Monitoring and Alerting
+## Monitoring and Alerting
 
 ### Logging
 - Configurable log levels (DEBUG, INFO, WARNING, ERROR)
@@ -233,7 +233,7 @@ monitoring:
     channel: "#data-pipeline-alerts"
 ```
 
-## 🔧 Advanced Features
+## Advanced Features
 
 ### Partitioned Data Loading
 ```python
@@ -259,7 +259,7 @@ transformer.add_derived_columns({
 - Parallel processing with configurable workers
 - Memory-efficient operations with Dask integration
 
-## 🌍 Environment Support
+## Environment Support
 
 The configuration supports multiple environments:
 
@@ -267,7 +267,7 @@ The configuration supports multiple environments:
 - **Staging**: Full data processing, testing configurations
 - **Production**: Optimized settings, monitoring enabled
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -275,11 +275,11 @@ The configuration supports multiple environments:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🆘 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
