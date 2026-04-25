@@ -5,12 +5,15 @@
 kaggle:
   credentials_path: "path/to/kaggle.json"
   datasets:
-    - name: "user/dataset-name"
-      file: "data.csv"
-      bigquery_table: "kaggle_data"
-    - name: "another-user/another-dataset"
+    - name: "harlfoxem/house-prices-advanced-regression-techniques"
       file: "train.csv"
-      bigquery_table: "training_data"
+      bigquery_table: "house_prices"
+    - name: "uciml/iris"
+      file: "Iris.csv"
+      bigquery_table: "iris_data"
+    - name: "wenruliu/adult-income-dataset"
+      file: "adult.csv"
+      bigquery_table: "adult_income"
 
 # BigQuery Configuration
 bigquery:
@@ -18,9 +21,11 @@ bigquery:
   credentials_path: "path/to/service-account-key.json"
   dataset: "kaggle_datasets"
   tables:
-    - name: "kaggle_data"
+    - name: "house_prices"
       limit: null
-    - name: "training_data"
+    - name: "iris_data"
+      limit: null
+    - name: "adult_income"
       limit: null
 
 # Azure Configuration
