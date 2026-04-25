@@ -69,7 +69,32 @@ data-lake-migration-bigquery-azure/
 - Kaggle account with API credentials
 - Service account credentials for both GCP and Azure
 
-## 🛠️ Installation
+## � Kaggle Datasets
+
+The pipeline is configured to use the following real Kaggle datasets:
+
+### 🏠 House Prices - Advanced Regression Techniques
+- **Kaggle Link**: https://www.kaggle.com/c/house-prices-advanced-regression-techniques
+- **BigQuery Table**: `house_prices`
+- **Type**: Regression analysis
+- **Features**: 79 features including lot size, rooms, location
+- **Use Case**: Real estate price prediction
+
+### 🌸 Iris Species
+- **Kaggle Link**: https://www.kaggle.com/datasets/uciml/iris
+- **BigQuery Table**: `iris_data`
+- **Type**: Multi-class classification
+- **Features**: 4 features (sepal/petal measurements)
+- **Use Case**: Classic machine learning demonstration
+
+### 👥 Adult Income Dataset
+- **Kaggle Link**: https://www.kaggle.com/datasets/wenruliu/adult-income-dataset
+- **BigQuery Table**: `adult_income`
+- **Type**: Binary classification
+- **Features**: Demographic data, education, occupation
+- **Use Case**: Income prediction analysis
+
+## �🛠️ Installation
 
 1. Clone the repository:
 ```bash

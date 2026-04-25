@@ -8,12 +8,18 @@ kaggle:
     - name: "harlfoxem/house-prices-advanced-regression-techniques"
       file: "train.csv"
       bigquery_table: "house_prices"
+      url: "https://www.kaggle.com/c/house-prices-advanced-regression-techniques"
+      description: "House price prediction with 79 features"
     - name: "uciml/iris"
       file: "Iris.csv"
       bigquery_table: "iris_data"
+      url: "https://www.kaggle.com/datasets/uciml/iris"
+      description: "Classic multi-class classification with 4 features"
     - name: "wenruliu/adult-income-dataset"
       file: "adult.csv"
       bigquery_table: "adult_income"
+      url: "https://www.kaggle.com/datasets/wenruliu/adult-income-dataset"
+      description: "Adult income prediction with demographic data"
 
 # BigQuery Configuration
 bigquery:
