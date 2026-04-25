@@ -1,0 +1,182 @@
+# Data Lake Migration Configuration
+# Configuration for migrating data from Kaggle to BigQuery to Azure
+
+# Kaggle Configuration
+kaggle:
+  credentials_path: "path/to/kaggle.json"
+  datasets:
+    - name: "user/dataset-name"
+      file: "data.csv"
+      bigquery_table: "kaggle_data"
+    - name: "another-user/another-dataset"
+      file: "train.csv"
+      bigquery_table: "training_data"
+
+# BigQuery Configuration
+bigquery:
+  project_id: "your-gcp-project-id"
+  credentials_path: "path/to/service-account-key.json"
+  dataset: "kaggle_datasets"
+  tables:
+    - name: "kaggle_data"
+      limit: null
+    - name: "training_data"
+      limit: null
+
+# Azure Configuration
+azure:
+  # For Blob Storage
+  connection_string: "DefaultEndpointsProtocol=https;AccountName=yourstorageaccount;AccountKey=yourkey;EndpointSuffix=core.windows.net"
+  account_name: "yourstorageaccount"
+  container: "data-lake-container"
+  
+  # For Data Lake Storage Gen2
+  file_system: "data-lake-filesystem"
+
+# Transformation Configuration
+transformations:
+  # Data cleaning
+  clean:
+    remove_nulls: true
+    fill_nulls:
+      column_name: "default_value"
+  
+  # Data type conversions
+  data_types:
+    id: "int64"
+    age: "int64"
+    salary: "float64"
+  
+  # Derived columns
+  derived_columns:
+    salary_age_ratio: "salary / age"
+    age_group: "pd.cut(age, bins=[0, 30, 40, 50, 100], labels=['Young', 'Adult', 'Middle', 'Senior'])"
+  
+  # Data filtering
+  filters:
+    age:
+      min: 18
+      max: 65
+    salary:
+      min: 20000
+  
+  # Data aggregation
+  aggregations:
+    group_by: ["department", "location"]
+    functions:
+      salary: ["mean", "median", "std"]
+      age: ["mean", "min", "max"]
+
+# Pipeline Configuration
+pipeline:
+  # Source configuration
+  source:
+    type: "table"  # or "query"
+    table:
+      dataset: "your-dataset"
+      name: "your-table"
+      limit: 10000
+    # query: "SELECT * FROM `project.dataset.table` WHERE date > '2023-01-01'"
+  
+  # Target configuration
+  target:
+    type: "local"  # or "azure_blob", "azure_datalake"
+    local:
+      file_path: "data/processed/output.csv"
+      format: "csv"
+    azure_blob:
+      container: "processed-data"
+      blob_name: "output.csv"
+      format: "csv"
+      overwrite: true
+    azure_datalake:
+      file_system: "processed-data"
+      file_path: "output/output.csv"
+      format: "csv"
+      overwrite: true
+  
+  # Logging configuration
+  logging:
+    level: "INFO"
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    file: "logs/pipeline.log"
+  
+  # Performance settings
+  performance:
+    chunk_size: 10000
+    max_workers: 4
+    memory_limit: "4GB"
+
+# Monitoring and Alerting
+monitoring:
+  # Email notifications
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: "your-email@gmail.com"
+    password: "your-app-password"
+    recipients:
+      - "admin@company.com"
+      - "data-team@company.com"
+  
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+    channel: "#data-pipeline-alerts"
+
+# Data Quality Checks
+data_quality:
+  enabled: true
+  checks:
+    - type: "row_count"
+      min_rows: 1
+      max_rows: 1000000
+    - type: "null_check"
+      columns: ["id", "name"]
+      max_null_percentage: 5
+    - type: "duplicate_check"
+      columns: ["id"]
+      max_duplicate_percentage: 0
+    - type: "range_check"
+      column: "age"
+      min_value: 0
+      max_value: 120
+    - type: "custom_check"
+      expression: "salary > 0"
+      error_message: "Salary must be positive"
+
+# Environment-specific configurations
+environments:
+  development:
+    bigquery:
+      project_id: "dev-project-id"
+    azure:
+      account_name: "devstorageaccount"
+    pipeline:
+      logging:
+        level: "DEBUG"
+  
+  staging:
+    bigquery:
+      project_id: "staging-project-id"
+    azure:
+      account_name: "stagingstorageaccount"
+    pipeline:
+      logging:
+        level: "INFO"
+  
+  production:
+    bigquery:
+      project_id: "prod-project-id"
+    azure:
+      account_name: "prodstorageaccount"
+    pipeline:
+      logging:
+        level: "WARNING"
+    monitoring:
+      email:
+        enabled: true
+      slack:
+        enabled: true

@@ -1,0 +1,144 @@
+{
+  "dashboard": {
+    "name": "Data Lake Migration Dashboard",
+    "description": "Live data migration analytics",
+    "refresh_interval": "5m",
+    "data_sources": [
+      {
+        "name": "BigQuery Live Data",
+        "type": "bigquery",
+        "project_id": "your-gcp-project",
+        "dataset": "data_lake_analytics",
+        "table": "live_metrics",
+        "refresh": "1m"
+      },
+      {
+        "name": "Azure Storage Data",
+        "type": "azure_blob",
+        "connection_string": "your-azure-connection",
+        "container": "analytics",
+        "file": "processed_data.json",
+        "refresh": "5m"
+      },
+      {
+        "name": "API Endpoint",
+        "type": "web_connector",
+        "url": "https://your-api.com/dashboard-data",
+        "headers": {
+          "Authorization": "Bearer YOUR_TOKEN"
+        },
+        "refresh": "30s"
+      }
+    ]
+  },
+  "charts": [
+    {
+      "id": "users_trend",
+      "title": "Users Trend",
+      "type": "time_series",
+      "dimensions": ["timestamp"],
+      "metrics": ["users"],
+      "chart_type": "line",
+      "refresh": "1m"
+    },
+    {
+      "id": "revenue_dashboard",
+      "title": "Revenue Analytics",
+      "type": "combo",
+      "dimensions": ["date"],
+      "metrics": ["revenue", "orders"],
+      "chart_type": "bar_line",
+      "refresh": "5m"
+    },
+    {
+      "id": "conversion_funnel",
+      "title": "Conversion Funnel",
+      "type": "funnel",
+      "dimensions": ["stage"],
+      "metrics": ["users"],
+      "chart_type": "bar",
+      "refresh": "2m"
+    },
+    {
+      "id": "real_time_metrics",
+      "title": "Real-time Metrics",
+      "type": "scorecard",
+      "metrics": ["active_users", "revenue_today", "conversion_rate"],
+      "chart_type": "kpis",
+      "refresh": "30s"
+    },
+    {
+      "id": "geographic_distribution",
+      "title": "Geographic Distribution",
+      "type": "geo",
+      "dimensions": ["country", "state"],
+      "metrics": ["users", "revenue"],
+      "chart_type": "map",
+      "refresh": "10m"
+    },
+    {
+      "id": "device_analytics",
+      "title": "Device Analytics",
+      "type": "pie",
+      "dimensions": ["device_type"],
+      "metrics": ["sessions"],
+      "chart_type": "donut",
+      "refresh": "5m"
+    }
+  ],
+  "filters": [
+    {
+      "id": "date_range",
+      "type": "date_range",
+      "default": "last_7_days",
+      "options": ["today", "yesterday", "last_7_days", "last_30_days", "custom"]
+    },
+    {
+      "id": "device_filter",
+      "type": "select",
+      "dimension": "device_type",
+      "options": ["All", "Desktop", "Mobile", "Tablet"]
+    },
+    {
+      "id": "country_filter",
+      "type": "select",
+      "dimension": "country",
+      "options": ["All", "India", "USA", "UK", "Australia"]
+    }
+  ],
+  "layout": {
+    "grid": "12x8",
+    "components": [
+      {"chart": "real_time_metrics", "position": [0, 0, 4, 2]},
+      {"chart": "users_trend", "position": [0, 2, 8, 3]},
+      {"chart": "revenue_dashboard", "position": [8, 2, 4, 3]},
+      {"chart": "conversion_funnel", "position": [0, 5, 6, 3]},
+      {"chart": "geographic_distribution", "position": [6, 5, 6, 3]},
+      {"chart": "device_analytics", "position": [0, 8, 4, 3]}
+    ]
+  },
+  "sharing": {
+    "public_access": false,
+    "domains": ["yourcompany.com"],
+    "embed_enabled": true,
+    "schedule_exports": true,
+    "export_frequency": "daily"
+  },
+  "alerts": {
+    "enabled": true,
+    "conditions": [
+      {
+        "metric": "active_users",
+        "operator": "less_than",
+        "threshold": 100,
+        "notification": "email"
+      },
+      {
+        "metric": "conversion_rate",
+        "operator": "less_than",
+        "threshold": 0.02,
+        "notification": "slack"
+      }
+    ]
+  }
+}
