@@ -102,7 +102,7 @@ python src/migration_pipeline.py
 
 ## Contact
 
-- **Email**: dorlikarvaishnavi@gmail.com
+- **Email**: dorlikarvaishnavi1@gmail.com
 - **LinkedIn**: [linkedin.com/in/vaishnavidorlikar](https://linkedin.com/in/vaishnavidorlikar)
 - **GitHub**: [github.com/Vaishnavidorlikar](https://github.com/Vaishnavidorlikar)
 - **Portfolio**: [vaishnavidorlikar.com](https://vaishnavidorlikar.com)
